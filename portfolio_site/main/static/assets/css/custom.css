@@ -1,0 +1,90 @@
+:root{
+  --lugx-blue-1:#0d6efd;
+  --lugx-blue-2:#0a58ca;
+  --lugx-accent:#ff5f7e;
+  --lugx-light:#f5f8ff;
+  --lugx-dark:#1e2a3a;
+  --radius: 22px;
+}
+*{ box-sizing:border-box; }
+body{
+  font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  min-height:100vh;
+  margin:0;
+  color:#fff;
+  background: radial-gradient(1100px 700px at 80% 20%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 60%),
+              linear-gradient(135deg, var(--lugx-blue-1) 0%, var(--lugx-blue-2) 60%);
+}
+.navbar{
+  background: transparent !important;
+}
+.brand{
+  display:flex; align-items:center; gap:.6rem;
+  font-weight:700; font-size:1.25rem; color:#fff; text-decoration:none;
+}
+.brand-badge{
+  width:38px;height:38px;border-radius:50%;
+  background:#fff1; display:grid; place-items:center;
+  border:2px solid #fff3;
+}
+.brand-badge::before{
+  content:"X"; font-weight:800; color:#fff; letter-spacing:.5px;
+}
+.nav-link{ color:#eaf1ff !important; opacity:.9; }
+.nav-link:hover{ opacity:1; }
+.btn-pill{
+  border-radius: 999px;
+  padding: .75rem 1.2rem;
+  font-weight:600;
+}
+.hero{
+  padding: 48px 0 30px 0;
+}
+.card-glass{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.form-control{
+  background:#ffffff;
+  border:none;
+  border-radius: 14px;
+  padding: .9rem 1rem;
+}
+.form-control:focus{
+  box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+}
+.form-label{ color:#e8efff; font-weight:600; }
+.btn-lugx{
+  background: #ffcc00;
+  border: none;
+  color: #1b1f2a;
+  border-radius: 16px;
+  padding: .9rem 1.2rem;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.btn-lugx:hover{
+  filter: brightness(.95);
+}
+.muted{ color:#cfe1ff; }
+.badge-price{
+  position:absolute; top:-14px; right:-14px;
+  background: #22c55e; color:#fff; padding:.45rem .7rem;
+  border-radius: 999px; font-weight:700; font-size:.9rem;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+.discount{
+  position:absolute; left:-12px; bottom:-14px;
+  background:#ff4d4f; color:#fff; border-radius:999px;
+  font-weight:800; font-size:1rem; padding:.6rem .9rem;
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+}
+.footer{
+  color:#cfe1ff; font-size:.9rem; padding: 10px 0 30px;
+}
+a{ color:#ffe28a; }
+a:hover{ color:#fffbca; }

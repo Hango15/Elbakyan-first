@@ -1,0 +1,805 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Lugx Gaming Shop HTML5 Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-lugx-gaming.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+</head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        {% if settinghead.logo %}
+                        <img src="{{settinghead.logo.url}}" alt="" style="width: 158px;">
+                        {%else%}
+                        <img src="{% static 'assets/images/logo.png' %}" alt="" style="width: 158px;">
+                        {%endif%}
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      {%if settinghead.texthtml1%}
+                      <li><a href="index.html" class="active">{{settinghead.texthtml1}}</a></li>
+                      {%else%}
+                      <li><a href="index.html" class="active">Home</a></li>
+                      {%endif%}
+
+                      {%if settinghead.texthtml2%}
+                      <li><a href="{% url 'shop'%}">{{settinghead.texthtml2}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'shop'%}">Our Shop</a></li>
+                      {%endif%}
+
+                      {%if settinghead.texthtml3%}
+                      <li><a href="{% url 'product_details' id=1 %}">{{settinghead.texthtml3}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'product_details' id=1 %}">Product Details</a></li>
+                      {%endif%}
+
+                      {%if settinghead.texthtml4%}
+                      <li><a href="{% url 'contact' %}">{{settinghead.texthtml4}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                      {%endif%}
+
+                      {%if settinghead.signuptext%}
+                      <li><a href="{% url 'register' %}">{{settinghead.signuptext}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'register' %}">Sign In</a></li>
+                      {%endif%}
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="main-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center">
+          <div class="caption header-text">
+            {%if settingcontainer.h6text%}
+            <h6>{{settingcontainer.h6text}}</h6>
+            {%else%}
+            <h6>BEST GAMING SITE EVER</h6>
+            {%endif%}
+
+            {%if settingcontainer.h2text%}
+            <h2>{{settingcontainer.h2text}}</h2>
+            {%else%}
+            <h2>WELCOME TO LUGX</h2>
+            {%endif%}
+
+            {%if settingcontainer.ptext%}
+            <p>{{settingcontainer.ptext}}</p>
+            {%endif%}
+
+            <div class="search-input">
+              <form method="POST" action="{% url 'handle_search' %}" id="searchForm">
+                {% csrf_token %}
+                <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword" required>
+                {%if settingcontainer.buttontext%}
+                <button type="submit">{{settingcontainer.buttontext}}</button>
+                {%else%}
+                <button type="submit">Search Now</button>
+                {%endif%}
+              </form>
+
+              <!-- For AJAX handling -->
+              <script>
+              document.getElementById('searchForm').addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  fetch(this.action, {
+                      method: 'POST',
+                      body: new FormData(this),
+                      headers: {
+                          'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      credentials: 'same-origin'   // ensures cookies/CSRF sent on same-origin requests
+                  }).then(response => {
+                      if (!response.ok) throw response;
+                      return response.json();
+                  }).then(data => {
+                      alert(data.message);
+                      // optionally clear input: document.getElementById('searchText').value = '';
+                  }).catch(async err => {
+                      // If err is a Response, get its body text/json for debugging
+                      if (err instanceof Response) {
+                          let text;
+                          try { text = await err.json(); } catch(e) { text = await err.text(); }
+                          console.error('Search request failed:', err.status, text);
+                          alert('Search failed: ' + (text.message || text || err.status));
+                      } else {
+                          console.error(err);
+                          alert('Unexpected error');
+                      }
+                  });
+              });
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 offset-lg-2">
+          <div class="right-image">
+            {%if settingcontainer.Gameimg%}
+            <img src="{{settingcontainer.Gameimg.url}}" alt="">
+            {%else%}
+            <img src="{% static 'assets/images/banner-image.jpg' %}" alt="">
+            {%endif%}
+
+
+            {%if settingcontainer.pricetext%}
+            <span class="price">{{settingcontainer.pricetext}}</span>
+            {%else%}
+            <span class="price">$22</span>
+            {%endif%}
+
+            {%if settingcontainer.offertext%}
+            <span class="offer">{{settingcontainer.offertext}}</span>
+            {%else%}
+            <span class="offer">-40%</span>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <a href="#">
+            <div class="item">
+              <div class="image">
+                {%if settingfeature.featureimg1%}
+                <img src="{{settingfeature.featureimg1.url}}" alt="" style="max-width: 44px;">
+                {%else%}
+                <img src="{% static 'assets/images/featured-01.png' %}" alt="" style="max-width: 44px;">
+                {%endif%}
+              </div>
+              {% if settingfeature.featuretext1%}
+              <h4>{{settingfeature.featuretext1}}</h4>
+              {%else%}
+              <h4>Free Storage</h4>
+              {%endif%}
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="#">
+            <div class="item">
+              <div class="image">
+                {%if settingfeature.featureimg2%}
+                <img src="{{settingfeature.featureimg2.url}}" alt="" style="max-width: 44px;">
+                {%else%}
+                <img src="{% static 'assets/images/featured-02.png' %}" alt="" style="max-width: 44px;">
+                {%endif%}
+              </div>
+              {%if settingfeature.featuretext2%}
+              <h4>{{settingfeature.featuretext2}}</h4>
+              {%else%}
+              <h4>User More</h4>
+              {%endif%}
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="#">
+            <div class="item">
+              <div class="image">
+                {%if settingfeature.featureimg3%}
+                <img src="{{settingfeature.featureimg3}}" alt="" style="max-width: 44px;">
+                {%else%}
+                <img src="{% static 'assets/images/featured-03.png' %}" alt="" style="max-width: 44px;">
+                {%endif%}
+              </div>
+
+              {%if settingfeature.featuretext3%}
+              <h4>{{settingfeature.featuretext3}}</h4>
+              {%else%}
+              <h4>Reply Ready</h4>
+              {%endif%}
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="#">
+            <div class="item">
+              <div class="image">
+                {%if settingfeature.featureimg4%}
+                <img src="{{settingfeature.featureimg4}}" alt="" style="max-width: 44px;">
+                {%else%}
+                <img src="{% static 'assets/images/featured-04.png' %}" alt="" style="max-width: 44px;">
+                {%endif%}
+              </div>
+              {%if settingfeature.featuretext4%}
+              <h4>{{settingfeature.featuretext4}}</h4>
+              {%else%}
+              <h4>Easy Layout</h4>
+              {%endif%}
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section trending">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            {%if settinggames.h6redtext%}
+            <h6>{{settinggames.h6redtext}}</h6>
+            {%else%}
+            <h6>Trending</h6>
+            {%endif%}
+
+            {%if settinggames.h2text%}
+            <h2>{{settinggames.h2text}}</h2>
+            {%else%}
+            <h2>Trending Games</h2>
+            {%endif%}
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="main-button">
+            {%if settinggames.buttontext%}
+            <a href="shop.html">{{settinggames.buttontext}}</a>
+            {%else%}
+            <a href="shop.html">View All</a>
+            {%endif%}
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames.gameimg1%}
+              <a href="product-details.html"><img src="{{settinggames.gameimg1.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
+              {%endif%}
+
+              {%if settinggames.pricetextoriginal1 and settinggames.pricetextlowered1%}
+              <span class="price"><em>{{settinggames.pricetextoriginal1}}</em>{{settinggames.pricetextlowered1}}</span>
+              {%else%}
+              <span class="price"><em>$28</em>$20</span>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames.gamegenre1%}
+              <span class="category">{{settinggames.gamegenre1}}</span>
+              {%else%}
+              <span class="category">Action</span>
+              {%endif%}
+
+
+              {%if settinggames.gamename1%}
+              <h4>{{settinggames.gamename1}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames.gameimg2%}
+              <a href="product-details.html"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
+              {%endif%}
+
+              {%if settinggames.pricetext2%}
+              <span class="price">{{settinggames.pricetext2}}</span>
+              {%else%}
+              <span class="price">$44</span>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames.gamegenre2%}
+              <span class="category">{{settinggames.gamegenre2}}</span>
+              {%else%}
+              <span class="category">Action</span>
+              {%endif%}
+
+              {%if settinggames.gamename2%}
+              <h4>{{settinggames.gamename2}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames.gameimg3%}
+              <a href="product-details.html"><img src="{{settinggames.gameimg3.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
+              {%endif%}
+
+              {%if settinggames.pricetextoriginal3 and settinggames.pricetextlowered3%}
+              <span class="price"><em>{{settinggames.pricetextoriginal3}}</em>{{settinggames.pricetextlowered3}}</span>
+              {%else%}
+              <span class="price"><em>$64</em>$44</span>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames.gamegenre3%}
+              <span class="category">{{settinggames.gamegenre3}}</span>
+              {%else%}
+              <span class="category">Action</span>
+              {%endif%}
+
+              {%if settinggames.gamename3%}
+              <h4>{{settinggames.gamename3}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames.gameimg4%}
+              <a href="product-details.html"><img src="{{settinggames.gameimg4.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
+              {%endif%}
+              {%if settinggames.pricetext4%}
+              <span class="price">{{settinggames.pricetext4}}</span>
+              {%else%}
+              <span class="price">$30</span>
+              {%endif%}
+            </div>
+            <div class="down-content">
+
+              {%if settinggames.gamegenre4%}
+              <span class="category">{{settinggames.gamegenre4}}</span>
+              {%else%}
+              <span class="category">Action</span>
+              {%endif%}
+
+              {%if settinggames.gamename4%}
+              <h4>{{settinggames.gamename4}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section most-played">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            {%if settinggames2.h6redtext%}
+            <h6>{{settinggames2.h6redtext}}</h6>
+            {%else%}
+            <h6>TOP GAMES</h6>
+            {%endif%}
+
+            {%if settinggames2.h2text%}
+            <h2>{{settinggames2.h2text}}</h2>
+            {%else%}
+            <h2>Most Played</h2>
+            {%endif%}
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="main-button">
+            {%if settinggames2.buttontext1%}
+            <a href="shop.html">{{settinggames2.buttontext1}}</a>
+            {%else%}
+            <a href="shop.html">View All</a>
+            {%endif%}
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg1%}
+              <a href="product-details.html"><img src="{{settinggames2.gameimg1.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-01.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames2.gamegenre1%}
+              <span class="category">{{settinggames2.gamegenre1}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename1%}
+              <h4>{{settinggames2.gamename1}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg2%}
+              <a href="product-details.html"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-02.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames2.gamegenre2%}
+              <span class="category">{{settinggames.gamegenre2}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename2%}
+              <h4>{{settinggames2.gamename2}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg3%}
+              <a href="product-details.html"><img src="{{settinggames2.gameimg3.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-03.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames2.gamegenre3%}
+              <span class="category">{{settinggames2.gamegenre3}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename3%}
+              <h4>{{settinggames2.gamename3}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg4%}
+              <a href="product-details.html"><img src="{{settinggames2.gameimg4.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-04.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames2.gamegenre4%}
+              <span class="category">{{settinggames2.gamegenre4}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename4%}
+              <h4>{{settinggames2.gamename4}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg5%}
+              <a href="product-details.html"><img src="{{settinggames2.gameimg5.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-05.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+
+              {%if settinggames2.gamegenre5%}
+              <span class="category">{{settinggames2.gamegenre5}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename5%}
+              <h4>{{settinggames2.gamename5}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="item">
+            <div class="thumb">
+              {%if settinggames2.gameimg6%}
+              <a href="product-details.html"><img src="{{settinggames2.gameimg6.url}}" alt=""></a>
+              {%else%}
+              <a href="product-details.html"><img src="{% static 'assets/images/top-game-06.jpg' %}" alt=""></a>
+              {%endif%}
+            </div>
+            <div class="down-content">
+              {%if settinggames2.gamegenre6%}
+              <span class="category">{{settinggames2.gamegenre6}}</span>
+              {%else%}
+              <span class="category">Adventure</span>
+              {%endif%}
+
+              {%if settinggames2.gamename6%}
+              <h4>{{settinggames2.gamename6}}</h4>
+              {%else%}
+              <h4>Assasin Creed</h4>
+              {%endif%}
+
+              {%if settinggames2.buttontext2%}
+              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              {%else%}              
+              <a href="product-details.html">Explore</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section categories">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="section-heading">
+          {% if settinggames3.h6redtext %}
+            <h6>{{ settinggames3.h6redtext }}</h6>
+          {% else %}
+            <h6>Categories</h6>
+          {% endif %}
+
+          {% if settinggames3.h2text %}
+            <h2>{{ settinggames3.h2text }}</h2>
+          {% else %}
+            <h2>Top Categories</h2>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-lg col-sm-6 col-xs-12">
+        <div class="item">
+          {% if settinggames3.gamegenre1 %}
+            <h4>{{ settinggames3.gamegenre1 }}</h4>
+          {% else %}
+            <h4>Action</h4>
+          {% endif %}
+          <div class="thumb">
+            {% if settinggames3.gameimg1 %}
+              <a href="product-details.html"><img src="{{ settinggames3.gameimg1.url }}" alt=""></a>
+            {% else %}
+              <a href="product-details.html"><img src="{% static 'assets/images/categories-01.jpg' %}" alt=""></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg col-sm-6 col-xs-12">
+        <div class="item">
+          {% if settinggames3.gamegenre2 %}
+            <h4>{{ settinggames3.gamegenre2 }}</h4>
+          {% else %}
+            <h4>Action</h4>
+          {% endif %}
+          <div class="thumb">
+            {% if settinggames3.gameimg2 %}
+              <a href="product-details.html"><img src="{{ settinggames3.gameimg2.url }}" alt=""></a>
+            {% else %}
+              <a href="product-details.html"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg col-sm-6 col-xs-12">
+        <div class="item">
+          {% if settinggames3.gamegenre3 %}
+            <h4>{{ settinggames3.gamegenre3 }}</h4>
+          {% else %}
+            <h4>Action</h4>
+          {% endif %}
+          <div class="thumb">
+            {% if settinggames3.gameimg3 %}
+              <a href="product-details.html"><img src="{{ settinggames3.gameimg3.url }}" alt=""></a>
+            {% else %}
+              <a href="product-details.html"><img src="{% static 'assets/images/categories-03.jpg' %}" alt=""></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg col-sm-6 col-xs-12">
+        <div class="item">
+          {% if settinggames3.gamegenre4 %}
+            <h4>{{ settinggames3.gamegenre4 }}</h4>
+          {% else %}
+            <h4>Action</h4>
+          {% endif %}
+          <div class="thumb">
+            {% if settinggames3.gameimg4 %}
+              <a href="product-details.html"><img src="{{ settinggames3.gameimg4.url }}" alt=""></a>
+            {% else %}
+              <a href="product-details.html"><img src="{% static 'assets/images/categories-04.jpg' %}" alt=""></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg col-sm-6 col-xs-12">
+        <div class="item">
+          {%if settinggames3.gamegenre5 %}
+            <h4>{{ settinggames3.gamegenre5 }}</h4>
+          {% else %}
+            <h4>Action</h4>
+          {% endif %}
+          <div class="thumb">
+            {% if settinggames3.gameimg5 %}
+              <a href="product-details.html"><img src="{{ settinggames3.gameimg5.url }}" alt=""></a>
+            {% else %}
+              <a href="product-details.html"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  <div class="section cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="shop">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-heading">
+                  <h6>Our Shop</h6>
+                  <h2>Go Pre-Order Buy & Get Best <em>Prices</em> For You!</h2>
+                </div>
+                <p>Lorem ipsum dolor consectetur adipiscing, sed do eiusmod tempor incididunt.</p>
+                <div class="main-button">
+                  <a href="shop.html">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-2 align-self-end">
+          <div class="subscribe">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-heading">
+                  <h6>NEWSLETTER</h6>
+                  <h2>Get Up To $100 Off Just Buy <em>Subscribe</em> Newsletter!</h2>
+                </div>
+                <div class="search-input">
+                  <form id="subscribe" action="{% url 'subscribe' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="email" name="email" placeholder="Your email..." required>
+                    <button type="submit">Subscribe Now</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="col-lg-12">
+        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+  <script src="{% static 'assets/js/counter.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+</body>
+</html>
