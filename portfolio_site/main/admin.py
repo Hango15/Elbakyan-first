@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import header, container, UserSearch, Features, Gamesection1, Gamesection2, Gamesection3, Subscriber, Profile
+from .models import Header, Container, UserSearch, Features, Gamesection1, Gamesection2, Gamesection3, Subscriber, Profile
 
 User = get_user_model()
 
-admin.site.register(header)
+admin.site.register(Header)
 admin.site.register(Features)
 admin.site.register(Gamesection1)
 admin.site.register(Gamesection2)
@@ -12,7 +12,7 @@ admin.site.register(Gamesection3)
 
 # Remove admin.site.register(User) — auth app already has User admin
 
-@admin.register(container)
+@admin.register(Container)
 class ContainerAdmin(admin.ModelAdmin):
     search_fields = ('h2text', 'h6text')
 
@@ -32,5 +32,5 @@ class SubscriberAdmin(admin.ModelAdmin):
 # Optional: register Profile so you can edit extra fields in admin
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'subscribed')  # adjust according to your Profile fields
-    search_fields = ('user__username', 'user__email')
+    list_display = ('user', 'subscribe')
+    search_fields = ('user__username', 'email')

@@ -6,7 +6,7 @@ from django.db import DatabaseError
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 
-from .models import header, container, UserSearch,Features,Gamesection1,Gamesection2,Gamesection3,Subscriber,Registration,Login
+from .models import Header, Container, UserSearch,Features,Gamesection1,Gamesection2,Gamesection3,Subscriber,Profile
 
 import logging
 logger = logging.getLogger(__name__)
@@ -16,8 +16,8 @@ def index(request):
     """
     Render the homepage with the first header and container settings.
     """
-    settinghead = header.objects.first()
-    settingcontainer = container.objects.first()
+    settinghead = Header.objects.first()
+    settingcontainer = Container.objects.first()
     settingfeature=Features.objects.first()
     settinggames=Gamesection1.objects.first()
     settinggames2=Gamesection2.objects.first()
@@ -133,7 +133,7 @@ def register(request):
             username = f"{base}{i}"
             i += 1
 
-        # create the Django auth user (this hashes the password)
+        # create the Django auth user
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -142,36 +142,27 @@ def register(request):
             last_name=last_name
         )
 
-        # Optionally keep a Registration record for non-auth metadata.
-        # IMPORTANT: do NOT store raw password there.
-        try:
-            Registration.objects.create(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                password="(stored_separately_or_removed)"  # <-- placeholder
-            )
-        except Exception:
-            # if you don't want Registration rows, just skip
-            pass
+        # create a Profile automatically
+        Profile.objects.create(user=user)
 
         messages.success(request, "Account created — you can now log in.")
-        return redirect("login")   # or "index"
+        return redirect("login")
+
     return render(request, "register.html")
+
+
 
 def login_view(request):
     if request.method == "POST":
-        email = request.POST.get("email", "").strip()
+        email = request.POST.get("email", "").strip().lower()
         password = request.POST.get("password", "")
 
         user = None
         if email and password:
-            user = authenticate(request, username=email, password=password)
-
-        if user is None and email:
             try:
                 user_obj = User.objects.get(email__iexact=email)
-                user = authenticate(request, username=user_obj.get_username(), password=password)
+                # authenticate using the user's username (Django's default)
+                user = authenticate(request, username=user_obj.username, password=password)
             except User.DoesNotExist:
                 user = None
 
