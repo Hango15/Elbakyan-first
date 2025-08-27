@@ -6,7 +6,7 @@ from django.db import DatabaseError
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 
-from .models import Header, Container, UserSearch,Features,Gamesection1,Gamesection2,Gamesection3,Subscriber,Profile
+from .models import Header, Container, UserSearch,Features,Gamesection1,Gamesection2,Gamesection3,Subscriber,Profile,HeaderShop,ContanierShop,ShopFilter
 
 import logging
 logger = logging.getLogger(__name__)
@@ -97,7 +97,16 @@ def subscribe(request):
 
 
 def shop(request):
-    return render(request, "shop.html")
+    shophead=HeaderShop.objects.first()
+    shopcontanier=ContanierShop.objects.first()
+    shopfilter=ShopFilter.objects.first()
+
+    shopcontext={
+        "shophead":shophead,
+        "shopcontanier":shopcontanier,
+        "shopfilter":shopfilter,
+    }
+    return render(request, "shop.html",shopcontext)
 
 def product_details(request, id):
     # Կարող ես տվյալները բազայից բեռնել, բայց հիմա կսարքենք dummy:

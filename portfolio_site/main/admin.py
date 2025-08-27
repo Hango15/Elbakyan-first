@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Header, Container, UserSearch, Features, Gamesection1, Gamesection2, Gamesection3, Subscriber, Profile
+from .models import Header, Container, UserSearch, Features, Gamesection1, Gamesection2, Gamesection3, Subscriber, Profile,HeaderShop,ContanierShop
 
 User = get_user_model()
 
@@ -9,7 +9,8 @@ admin.site.register(Features)
 admin.site.register(Gamesection1)
 admin.site.register(Gamesection2)
 admin.site.register(Gamesection3)
-
+admin.site.register(HeaderShop)
+admin.site.register(ContanierShop)
 # Remove admin.site.register(User) — auth app already has User admin
 
 @admin.register(Container)

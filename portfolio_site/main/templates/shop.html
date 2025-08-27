@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,22 +11,14 @@
     <title>Lugx Gaming - Shop Page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-lugx-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
-
-TemplateMo 589 lugx gaming
-
-https://templatemo.com/tm-589-lugx-gaming
-
--->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-lugx-gaming.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
   </head>
 
 <body>
@@ -51,16 +44,45 @@ https://templatemo.com/tm-589-lugx-gaming
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="" style="width: 158px;">
+                        {% if shophead.logo %}
+                        <img src="{{shophead.logo.url}}" alt="" style="width: 158px;">
+                        {%else%}
+                        <img src="{% static 'assets/images/logo.png' %}" alt="" style="width: 158px;">
+                        {%endif%}
+                    </a>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="shop.html" class="active">Our Shop</a></li>
-                      <li><a href="product-details.html">Product Details</a></li>
-                      <li><a href="contact.html">Contact Us</a></li>
-                      <li><a href="#">Sign In</a></li>
+                      {%if shophead.texthtml1%}
+                      <li><a href="{% url 'index'%}" class="active">{{shophead.texthtml1}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'index'%}" class="active">Home</a></li>
+                      {%endif%}
+
+                      {%if shophead.texthtml2%}
+                      <li><a href="{% url 'shop'%}">{{shophead.texthtml2}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'shop'%}">Our Shop</a></li>
+                      {%endif%}
+
+                      {%if shophead.texthtml3%}
+                      <li><a href="{% url 'product_details' id=1 %}">{{shophead.texthtml3}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'product_details' id=1 %}">Product Details</a></li>
+                      {%endif%}
+
+                      {%if shophead.texthtml4%}
+                      <li><a href="{% url 'contact' %}">{{shophead.texthtml4}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                      {%endif%}
+
+                      {%if shophead.signuptext%}
+                      <li><a href="{% url 'register' %}">{{shophead.signuptext}}</a></li>
+                      {%else%}
+                      <li><a href="{% url 'register' %}">Sign In</a></li>
+                      {%endif%}
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -77,8 +99,19 @@ https://templatemo.com/tm-589-lugx-gaming
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
+
+          {%if shopcontanier.bigtext%}
+          <h3>{{shopcontanier.bigtext}}</h3>
+          {%else%}
           <h3>Our Shop</h3>
-          <span class="breadcrumb"><a href="#">Home</a> > Our Shop</span>
+          {%endif%}
+
+          {%if shopcontanier.smalltext1 and shopcontanier.smalltext2%}
+          <span class="breadcrumb"><a href="{% url 'index' %}">{{shopcontanier.smalltext1}}</a> >{{shopcontanier.smalltext2}}</span>
+
+          {%else%}
+          <span class="breadcrumb"><a href="{% url 'index' %}">Home</a> > Our Shop</span>
+          {%endif%}
         </div>
       </div>
     </div>
@@ -104,7 +137,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-01.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
               <span class="price"><em>$36</em>$24</span>
             </div>
             <div class="down-content">
@@ -117,7 +150,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-02.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
               <span class="price"><em>$32</em>$22</span>
             </div>
             <div class="down-content">
@@ -130,7 +163,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv rac">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-03.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
               <span class="price"><em>$45</em>$30</span>
             </div>
             <div class="down-content">
@@ -143,7 +176,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-04.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
               <span class="price"><em>$32</em>$22</span>
             </div>
             <div class="down-content">
@@ -156,7 +189,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 rac str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-03.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
               <span class="price"><em>$38</em>$26</span>
             </div>
             <div class="down-content">
@@ -169,7 +202,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 rac adv">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-01.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
               <span class="price"><em>$30</em>$20</span>
             </div>
             <div class="down-content">
@@ -182,7 +215,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 rac str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-04.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
               <span class="price"><em>$32</em>$22</span>
             </div>
             <div class="down-content">
@@ -195,7 +228,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 rac adv">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-02.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
               <span class="price"><em>$32</em>$22</span>
             </div>
             <div class="down-content">
@@ -208,7 +241,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv rac">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-03.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
               <span class="price"><em>$28</em>$20</span>
             </div>
             <div class="down-content">
@@ -221,7 +254,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-04.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
               <span class="price"><em>$26</em>$18</span>
             </div>
             <div class="down-content">
@@ -234,7 +267,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-01.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
               <span class="price"><em>$32</em>$24</span>
             </div>
             <div class="down-content">
@@ -247,7 +280,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
           <div class="item">
             <div class="thumb">
-              <a href="product-details.html"><img src="assets/images/trending-02.jpg" alt=""></a>
+              <a href="product-details.html"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
               <span class="price"><em>$45</em>$30</span>
             </div>
             <div class="down-content">
@@ -282,12 +315,12 @@ https://templatemo.com/tm-589-lugx-gaming
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/isotope.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/counter.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+  <script src="{% static 'assets/js/counter.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
 
   </body>
 </html>

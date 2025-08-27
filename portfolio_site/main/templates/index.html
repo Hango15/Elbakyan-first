@@ -42,7 +42,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{% url 'index'%}" class="logo">
                         {% if settinghead.logo %}
                         <img src="{{settinghead.logo.url}}" alt="" style="width: 158px;">
                         {%else%}
@@ -53,9 +53,9 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                       {%if settinghead.texthtml1%}
-                      <li><a href="index.html" class="active">{{settinghead.texthtml1}}</a></li>
+                      <li><a href="{% url 'index'%}" class="active">{{settinghead.texthtml1}}</a></li>
                       {%else%}
-                      <li><a href="index.html" class="active">Home</a></li>
+                      <li><a href="{% url 'index'%}" class="active">Home</a></li>
                       {%endif%}
 
                       {%if settinghead.texthtml2%}
@@ -286,9 +286,9 @@
         <div class="col-lg-6">
           <div class="main-button">
             {%if settinggames.buttontext%}
-            <a href="shop.html">{{settinggames.buttontext}}</a>
+            <a href="{% url 'shop' %}">{{settinggames.buttontext}}</a>
             {%else%}
-            <a href="shop.html">View All</a>
+            <a href="{% url 'shop' %}">View All</a>
             {%endif%}
           </div>
         </div>
@@ -296,9 +296,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames.gameimg1%}
-              <a href="product-details.html"><img src="{{settinggames.gameimg1.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames.gameimg1.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/trending-01.jpg' %}" alt=""></a>
               {%endif%}
 
               {%if settinggames.pricetextoriginal1 and settinggames.pricetextlowered1%}
@@ -320,7 +320,7 @@
               {%else%}
               <h4>Assasin Creed</h4>
               {%endif%}
-              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+              <a href="{% url 'product_details' id=1 %}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
@@ -328,9 +328,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames.gameimg2%}
-              <a href="product-details.html"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/trending-02.jpg' %}" alt=""></a>
               {%endif%}
 
               {%if settinggames.pricetext2%}
@@ -351,7 +351,7 @@
               {%else%}
               <h4>Assasin Creed</h4>
               {%endif%}
-              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+              <a href="{% url 'product_details' id=1 %}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
@@ -359,9 +359,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames.gameimg3%}
-              <a href="product-details.html"><img src="{{settinggames.gameimg3.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames.gameimg3.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/trending-03.jpg' %}" alt=""></a>
               {%endif%}
 
               {%if settinggames.pricetextoriginal3 and settinggames.pricetextlowered3%}
@@ -382,7 +382,7 @@
               {%else%}
               <h4>Assasin Creed</h4>
               {%endif%}
-              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+              <a href="{% url 'product_details' id=1 %}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
@@ -390,9 +390,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames.gameimg4%}
-              <a href="product-details.html"><img src="{{settinggames.gameimg4.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames.gameimg4.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/trending-04.jpg' %}" alt=""></a>
               {%endif%}
               {%if settinggames.pricetext4%}
               <span class="price">{{settinggames.pricetext4}}</span>
@@ -414,7 +414,7 @@
               <h4>Assasin Creed</h4>
               {%endif%}
 
-              <a href="product-details.html"><i class="fa fa-shopping-bag"></i></a>
+              <a href="{% url 'product_details' id=1 %}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
@@ -443,9 +443,9 @@
         <div class="col-lg-6">
           <div class="main-button">
             {%if settinggames2.buttontext1%}
-            <a href="shop.html">{{settinggames2.buttontext1}}</a>
+            <a href="{% url 'shop'%}">{{settinggames2.buttontext1}}</a>
             {%else%}
-            <a href="shop.html">View All</a>
+            <a href="{% url 'shop'%}">View All</a>
             {%endif%}
           </div>
         </div>
@@ -453,9 +453,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg1%}
-              <a href="product-details.html"><img src="{{settinggames2.gameimg1.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames2.gameimg1.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-01.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-01.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -472,9 +472,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -483,9 +483,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg2%}
-              <a href="product-details.html"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames.gameimg2.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-02.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-02.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -502,9 +502,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -513,9 +513,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg3%}
-              <a href="product-details.html"><img src="{{settinggames2.gameimg3.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames2.gameimg3.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-03.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-03.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -532,9 +532,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -543,9 +543,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg4%}
-              <a href="product-details.html"><img src="{{settinggames2.gameimg4.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames2.gameimg4.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-04.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-04.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -562,9 +562,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -573,9 +573,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg5%}
-              <a href="product-details.html"><img src="{{settinggames2.gameimg5.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames2.gameimg5.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-05.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-05.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -593,9 +593,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -604,9 +604,9 @@
           <div class="item">
             <div class="thumb">
               {%if settinggames2.gameimg6%}
-              <a href="product-details.html"><img src="{{settinggames2.gameimg6.url}}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{settinggames2.gameimg6.url}}" alt=""></a>
               {%else%}
-              <a href="product-details.html"><img src="{% static 'assets/images/top-game-06.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/top-game-06.jpg' %}" alt=""></a>
               {%endif%}
             </div>
             <div class="down-content">
@@ -623,9 +623,9 @@
               {%endif%}
 
               {%if settinggames2.buttontext2%}
-              <a href="product-details.html">{{settinggames2.buttontext2}}</a>
+              <a href="{% url 'product_details' id=1 %}">{{settinggames2.buttontext2}}</a>
               {%else%}              
-              <a href="product-details.html">Explore</a>
+              <a href="{% url 'product_details' id=1 %}">Explore</a>
               {%endif%}
             </div>
           </div>
@@ -662,9 +662,9 @@
           {% endif %}
           <div class="thumb">
             {% if settinggames3.gameimg1 %}
-              <a href="product-details.html"><img src="{{ settinggames3.gameimg1.url }}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{ settinggames3.gameimg1.url }}" alt=""></a>
             {% else %}
-              <a href="product-details.html"><img src="{% static 'assets/images/categories-01.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/categories-01.jpg' %}" alt=""></a>
             {% endif %}
           </div>
         </div>
@@ -679,9 +679,9 @@
           {% endif %}
           <div class="thumb">
             {% if settinggames3.gameimg2 %}
-              <a href="product-details.html"><img src="{{ settinggames3.gameimg2.url }}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{ settinggames3.gameimg2.url }}" alt=""></a>
             {% else %}
-              <a href="product-details.html"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
             {% endif %}
           </div>
         </div>
@@ -696,9 +696,9 @@
           {% endif %}
           <div class="thumb">
             {% if settinggames3.gameimg3 %}
-              <a href="product-details.html"><img src="{{ settinggames3.gameimg3.url }}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{ settinggames3.gameimg3.url }}" alt=""></a>
             {% else %}
-              <a href="product-details.html"><img src="{% static 'assets/images/categories-03.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/categories-03.jpg' %}" alt=""></a>
             {% endif %}
           </div>
         </div>
@@ -713,9 +713,9 @@
           {% endif %}
           <div class="thumb">
             {% if settinggames3.gameimg4 %}
-              <a href="product-details.html"><img src="{{ settinggames3.gameimg4.url }}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{ settinggames3.gameimg4.url }}" alt=""></a>
             {% else %}
-              <a href="product-details.html"><img src="{% static 'assets/images/categories-04.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/categories-04.jpg' %}" alt=""></a>
             {% endif %}
           </div>
         </div>
@@ -730,9 +730,9 @@
           {% endif %}
           <div class="thumb">
             {% if settinggames3.gameimg5 %}
-              <a href="product-details.html"><img src="{{ settinggames3.gameimg5.url }}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{{ settinggames3.gameimg5.url }}" alt=""></a>
             {% else %}
-              <a href="product-details.html"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
+              <a href="{% url 'product_details' id=1 %}"><img src="{% static 'assets/images/categories-05.jpg' %}" alt=""></a>
             {% endif %}
           </div>
         </div>
@@ -755,7 +755,7 @@
                 </div>
                 <p>Lorem ipsum dolor consectetur adipiscing, sed do eiusmod tempor incididunt.</p>
                 <div class="main-button">
-                  <a href="shop.html">Shop Now</a>
+                  <a href="{% url 'shop' %}">Shop Now</a>
                 </div>
               </div>
             </div>

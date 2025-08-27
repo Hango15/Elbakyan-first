@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+#Index.html
+
 # ---------- Header & Content Models ----------
 class Header(models.Model):
     logo = models.ImageField(upload_to='logo/', blank=True)
@@ -151,3 +153,28 @@ class Gamesection3(models.Model):
 
 
 
+#Shop.html
+
+# ---------- Header & Content Models ----------
+class HeaderShop(models.Model):
+    logo = models.ImageField(upload_to='logo/', blank=True)
+    texthtml1 = models.CharField(max_length=200, default="Home")
+    texthtml2 = models.CharField(max_length=200, default="Our shop")
+    texthtml3 = models.CharField(max_length=200, default="Product details")
+    texthtml4 = models.CharField(max_length=200, default="Contact us")
+    signuptext = models.CharField(max_length=200, default="Sign up")
+
+    def __str__(self):
+        return "Header Configuration"
+    
+class ContanierShop(models.Model):
+    bigtext=models.CharField(max_length=200)
+    smalltext1=models.CharField(max_length=200)
+    smalltext2=models.CharField(max_length=200)
+## ---------- Filter ----------
+
+class ShopFilter(models.Model):
+    filtertext1=models.CharField(max_length=200)
+    filtertext2=models.CharField(max_length=200)
+    filtertext3=models.CharField(max_length=200)
+    filtertext4=models.CharField(max_length=200)
