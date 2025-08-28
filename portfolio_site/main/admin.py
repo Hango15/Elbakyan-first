@@ -1,6 +1,28 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Header, Container, UserSearch, Features, Gamesection1, Gamesection2, Gamesection3, Subscriber, Profile,HeaderShop,ContanierShop
+from .models import (
+    Header,
+    Container,
+    UserSearch,
+    Features,
+    Gamesection1,
+    Gamesection2,
+    Gamesection3,
+    Subscriber,
+    Shop_section_text,
+    Subscribe_text,
+    Profile,
+    ContanierShop,
+    ShopFilter,
+    ShopBuysection,
+    Game,
+    Product,
+    Genre,
+    Tag,
+    Review,
+    ContactMessage
+
+)
 
 User = get_user_model()
 
@@ -9,9 +31,29 @@ admin.site.register(Features)
 admin.site.register(Gamesection1)
 admin.site.register(Gamesection2)
 admin.site.register(Gamesection3)
-admin.site.register(HeaderShop)
+admin.site.register(Shop_section_text)
+admin.site.register(Subscribe_text)
 admin.site.register(ContanierShop)
-# Remove admin.site.register(User) — auth app already has User admin
+admin.site.register(ShopFilter)
+admin.site.register(Product)
+admin.site.register(Genre)
+admin.site.register(Tag)
+admin.site.register(Review)
+
+# Inline for Games inside a Shop Section
+class GameInline(admin.TabularInline):
+    model = Game
+    extra = 1  # how many empty forms to show
+    fields = ('gamename', 'gamegenre', 'pricetextoriginal', 'pricetextlowered', 'gameimg')
+
+# Shop Section admin with inline Games
+class ShopBuysectionAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    inlines = [GameInline]
+
+# Register models
+admin.site.register(ShopBuysection, ShopBuysectionAdmin)
+admin.site.register(Game)
 
 @admin.register(Container)
 class ContainerAdmin(admin.ModelAdmin):
@@ -35,3 +77,9 @@ class SubscriberAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'subscribe')
     search_fields = ('user__username', 'email')
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ("name", "surname", "email", "subject", "created_at")
+    search_fields = ("name", "surname", "email", "subject", "message")
+    list_filter = ("created_at",)

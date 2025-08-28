@@ -64,12 +64,6 @@
                       <li><a href="{% url 'shop'%}">Our Shop</a></li>
                       {%endif%}
 
-                      {%if settinghead.texthtml3%}
-                      <li><a href="{% url 'product_details' id=1 %}">{{settinghead.texthtml3}}</a></li>
-                      {%else%}
-                      <li><a href="{% url 'product_details' id=1 %}">Product Details</a></li>
-                      {%endif%}
-
                       {%if settinghead.texthtml4%}
                       <li><a href="{% url 'contact' %}">{{settinghead.texthtml4}}</a></li>
                       {%else%}
@@ -750,12 +744,30 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="section-heading">
+                  {%if settingshopsectiontext.h6redtext %}
+                  <h6>{{settingshopsectiontext.h6redtext}}</h6>
+                  {%else%}
                   <h6>Our Shop</h6>
+                  {%endif%}
+
+                  {%if settingshopsectiontext.h2text and settingshopsectiontext.h2bluetext %}
+                  <h2>{{ settingshopsectiontext.h2text|safe }} <em>{{settingshopsectiontext.h2bluetext}}</em></h2>
+                  {%else%}
                   <h2>Go Pre-Order Buy & Get Best <em>Prices</em> For You!</h2>
+                  {%endif%}
                 </div>
+
+                {%if settingshopsectiontext.ptext %}
+                <p>{{settingshopsectiontext.ptext}}</p>
+                {%else%}
                 <p>Lorem ipsum dolor consectetur adipiscing, sed do eiusmod tempor incididunt.</p>
+                {%endif%}
                 <div class="main-button">
+                  {%if settingshopsectiontext.buttontext%}
+                  <a href="{% url 'shop' %}">{{settingshopsectiontext.buttontext}}</a>
+                  {%else%}
                   <a href="{% url 'shop' %}">Shop Now</a>
+                  {%endif%}
                 </div>
               </div>
             </div>
@@ -766,14 +778,28 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="section-heading">
-                  <h6>NEWSLETTER</h6>
-                  <h2>Get Up To $100 Off Just Buy <em>Subscribe</em> Newsletter!</h2>
+                 {%if settingsubtext.h6redtext %}
+                  <h6>{{settingsubtext.h6redtext}}</h6>
+                  {%else%}
+                  <h6>Newsletter</h6>
+                  {%endif%}
+
+                  {%if settingsubtext.h2text and settingsubtext.h2bluetext %}
+                  <h2>{{ settingsubtext.h2text|safe }} <em>{{settingsubtext.h2bluetext}}</em></h2>
+                  {%else%}
+                  <h2>Get Up To $100 Off Just Buy <em>Subscribe </em> Newsletter!</h2>
+                  {%endif%}
                 </div>
                 <div class="search-input">
                   <form id="subscribe" action="{% url 'subscribe' %}" method="POST">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Your email..." required>
-                    <button type="submit">Subscribe Now</button>
+
+                  {%if settingsubtext.buttontext%}
+                  <button type="submit">{{settingsubtext.buttontext}}</button>
+                  {%else%}
+                  <button type="submit">Subscribe Now</button>
+                  {%endif%}
                   </form>
                 </div>
               </div>

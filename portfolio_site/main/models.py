@@ -60,6 +60,23 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email
+# ---------- Subscribe text ----------
+
+class Subscribe_text(models.Model):
+    h6redtext=models.CharField(max_length=200)
+    h2text=models.CharField(max_length=400)
+    h2bluetext=models.CharField(max_length=100)
+    buttontext=models.CharField(max_length=200)
+
+# ---------- Shop section text ----------
+class Shop_section_text(models.Model):
+    
+    h6redtext=models.CharField(max_length=200)
+    h2text=models.CharField(max_length=400)
+    h2bluetext=models.CharField(max_length=100)
+    ptext=models.TextField()
+    buttontext=models.CharField(max_length=200)
+
 
 # ---------- Feature & Game Sections ----------
 class Features(models.Model):
@@ -155,26 +172,86 @@ class Gamesection3(models.Model):
 
 #Shop.html
 
-# ---------- Header & Content Models ----------
-class HeaderShop(models.Model):
-    logo = models.ImageField(upload_to='logo/', blank=True)
-    texthtml1 = models.CharField(max_length=200, default="Home")
-    texthtml2 = models.CharField(max_length=200, default="Our shop")
-    texthtml3 = models.CharField(max_length=200, default="Product details")
-    texthtml4 = models.CharField(max_length=200, default="Contact us")
-    signuptext = models.CharField(max_length=200, default="Sign up")
+# ---------- & Content Models ---------
 
-    def __str__(self):
-        return "Header Configuration"
-    
 class ContanierShop(models.Model):
     bigtext=models.CharField(max_length=200)
     smalltext1=models.CharField(max_length=200)
     smalltext2=models.CharField(max_length=200)
-## ---------- Filter ----------
+#---------- Filter ----------
 
 class ShopFilter(models.Model):
     filtertext1=models.CharField(max_length=200)
     filtertext2=models.CharField(max_length=200)
     filtertext3=models.CharField(max_length=200)
     filtertext4=models.CharField(max_length=200)
+
+#---------- Buy section ----------
+
+class ShopBuysection(models.Model):
+    title = models.CharField(max_length=200, help_text="Section name (e.g. Top Discounts, Bestsellers)")
+
+    def __str__(self):
+        return self.title
+
+
+class Game(models.Model):
+    shop_section = models.ForeignKey(
+        ShopBuysection, 
+        on_delete=models.CASCADE, 
+        related_name="games"
+    )
+    gamename = models.CharField(max_length=200)
+    gamegenre = models.CharField(max_length=200)
+    pricetextoriginal = models.CharField(max_length=200)
+    pricetextlowered = models.CharField(max_length=200)
+    gameimg = models.ImageField(upload_to="Gamesimg/", blank=True)
+
+    def __str__(self):
+        return self.gamename
+
+#PRODUCT_DETAILS.HTML
+
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    game_id = models.CharField(max_length=20)
+    image = models.ImageField(upload_to='products/')
+    description = models.TextField()
+    long_description = models.TextField(blank=True)
+    original_price = models.DecimalField(max_digits=8, decimal_places=2)
+    sale_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    genre = models.ManyToManyField(Genre)
+    tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.name
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, related_name="reviews", on_delete=models.CASCADE)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+#Contact.html
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200, blank=True, null=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} {self.surname} - {self.subject}"
