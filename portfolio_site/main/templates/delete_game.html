@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'assets/css/forms.css' %}">
+
+<div class="delete-container">
+  <h2>⚠️ Delete Game</h2>
+  <p>Are you sure you want to delete <strong>{{ game.gamename }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-delete">🗑 Delete</button>
+    <a href="{% url 'product_details' game.id %}" class="btn btn-cancel">❌ Cancel</a>
+  </form>
+</div>

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login as auth_login, logout,get_user_model
 from django.db import DatabaseError
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-from .forms import ContactForm
+from .forms import ContactForm,GameForm
 from .models import (
     Header,
     Container,
@@ -240,3 +241,40 @@ def contact_view(request):
         form = ContactForm()
     
     return render(request, "contact.html", {"form": form})
+
+
+# Allow only staff/admin users
+@user_passes_test(lambda u: u.is_staff)
+@login_required
+def add_game(request):
+    if request.method == "POST":
+        form = GameForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("shop")  # Redirect to shop after adding
+    else:
+        form = GameForm()
+    return render(request, "add_game.html", {"form": form})
+
+# Edit Game
+def edit_game(request, id):
+    game = get_object_or_404(Game, id=id)
+    if request.method == "POST":
+        form = GameForm(request.POST, request.FILES, instance=game)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Game updated successfully!")
+            return redirect("product_details", id=game.id)
+    else:
+        form = GameForm(instance=game)
+    return render(request, "edit_game.html", {"form": form, "game": game})
+
+
+# Delete Game
+def delete_game(request, id):
+    game = get_object_or_404(Game, id=id)
+    if request.method == "POST":
+        game.delete()
+        messages.success(request, "Game deleted successfully!")
+        return redirect("shop")
+    return render(request, "delete_game.html", {"game": game})
